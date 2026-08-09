@@ -1,197 +1,251 @@
 <?php
-// Ensure this is included within an active session
+// includes/header.php
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($pageTitle) ? e($pageTitle) . ' | Ayana Boutique' : 'Ayana Boutique' ?></title>
+    <title>Ayana Boutique</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
-        /* Refined Design Tokens */
+        /* Luxury CSS & Design Tokens */
         :root {
             --off-white: #FAF6F0;
             --off-white-alt: #F0E8DB;
-            --emerald: #0B4F3F;
+            --royal-emerald: #0B4F3F;
             --emerald-hover: #146356;
             --emerald-soft: #DCE8E3;
             --rose-gold: #B76E79;
             --rose-gold-deep: #9B5661;
             --rose-gold-soft: #F0DCDD;
             --ink: #2C2620;
-            --ink-soft: #5A524A;
         }
 
-        /* Elegant Resets & Animations */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            font-family: 'Jost', sans-serif; 
-            background-color: var(--off-white); 
-            color: var(--ink); 
-            line-height: 1.8; 
-            -webkit-font-smoothing: antialiased; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--off-white);
+            color: var(--ink);
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
             animation: fadeIn 1.2s ease-in-out;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Typography - Delicate & Spacious */
-        h1, h2, h3, h4, h5, h6, .cinzel { 
-            font-family: 'Cinzel', serif; 
-            font-weight: 400; 
-            color: var(--emerald); 
-            letter-spacing: 0.04em;
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
-        h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 24px; }
-        h2 { font-size: 2.2rem; margin-bottom: 16px; }
-        .accent-italic { 
-            font-family: 'Cormorant Garamond', serif; 
-            font-style: italic; 
-            color: var(--rose-gold); 
-            font-size: 1.3rem;
+
+        h1, h2, h3, h4, h5, h6, .brand-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 400;
+            color: var(--royal-emerald);
+            letter-spacing: 2px;
         }
-        a { text-decoration: none; color: var(--emerald); transition: color 0.4s ease; }
 
-        /* Layout Structure */
-        .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 40px; }
-        .section { padding: 100px 0; } 
-        .section-alt { background-color: var(--off-white-alt); }
-        .section-emerald { background-color: var(--emerald); color: var(--off-white); }
-        .section-emerald h2, .section-emerald p { color: var(--off-white); }
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.4s ease, border-color 0.4s ease, background-color 0.4s ease;
+        }
 
-        /* Navigation */
-        .site-header { 
-            padding: 32px 0; 
-            background-color: transparent; 
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Header */
+        header {
+            padding: 30px 0;
+            border-bottom: 1px solid var(--emerald-soft);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--royal-emerald);
+        }
+
+        .nav-links a:hover {
+            color: var(--rose-gold);
+        }
+
+        /* Hero Layout - Full Width Edge-to-Edge */
+        .hero-section {
+            width: 100vw;
+            max-width: 100vw;
             position: relative;
-            z-index: 10;
-        }
-        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-        
-        .brand-logo { 
-            font-family: 'Cinzel', serif; 
-            font-size: 1.6rem; 
-            color: var(--emerald); 
-            font-weight: 400; 
-            letter-spacing: 0.08em; 
-            display: flex; 
-            align-items: center; 
-            gap: 20px; 
+            text-align: center;
+            line-height: 0;
+            margin-bottom: 60px;
         }
         
-        .nav-links { display: flex; gap: 35px; flex-wrap: wrap; justify-content: center; }
-        .nav-links a { 
-            font-size: 0.75rem; 
-            text-transform: uppercase; 
-            letter-spacing: 0.15em; 
-        }
-        .nav-links a:hover { color: var(--rose-gold); }
-
-        /* Buttons */
-        .btn { 
-            display: inline-block; 
-            padding: 16px 36px; 
-            text-transform: uppercase; 
-            font-size: 0.75rem; 
-            letter-spacing: 0.15em; 
-            text-align: center; 
-            cursor: pointer; 
-            transition: all 0.4s ease; 
-            background: transparent;
-        }
-        .btn-primary { color: var(--emerald); border: 1px solid var(--emerald); }
-        .btn-primary:hover { background-color: var(--emerald); color: var(--off-white); }
-        .btn-block { display: block; width: 100%; }
-
-        /* Utility */
-        .eyebrow { 
-            display: block; 
-            font-size: 0.75rem; 
-            text-transform: uppercase; 
-            letter-spacing: 0.2em; 
-            color: var(--rose-gold); 
-            margin-bottom: 16px; 
+        .hero-section img {
+            width: 100%;
+            height: auto;
+            max-height: 85vh;
+            object-fit: cover;
         }
 
-        /* Products & Categories */
-        .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
-        .category-card { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: transparent; padding: 80px 20px; text-align: center; border: 1px solid var(--emerald-soft); transition: all 0.5s ease; }
-        .category-card h3 { color: var(--emerald); font-size: 1.4rem; margin-bottom: 12px; transition: color 0.4s ease; }
-        .category-card span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--ink-soft); }
-        .category-card:hover { background-color: var(--off-white-alt); border-color: var(--rose-gold); }
-        .category-card:hover h3, .category-card:hover span { color: var(--rose-gold); }
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(250, 246, 240, 0.85);
+            padding: 40px 60px;
+            border: 1px solid var(--rose-gold-soft);
+            width: 80%;
+            max-width: 800px;
+            line-height: 1.6;
+        }
 
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 40px; }
-        .product-thumb img { width: 100%; height: 380px; object-fit: cover; background-color: var(--off-white-alt); }
-        .product-info { margin-top: 16px; }
+        /* Elegant Text-Only Category Blocks */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0 80px 0;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            border: 1px solid var(--rose-gold-soft);
+            background-color: transparent;
+            text-align: center;
+        }
+
+        .category-item h3 {
+            font-size: 1.6rem;
+            color: var(--royal-emerald);
+            margin: 0;
+        }
+
+        .category-item:hover {
+            border-color: var(--rose-gold);
+            background-color: var(--emerald-soft);
+        }
+
+        /* Product List Grid & Image Clamping */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .product-card {
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 400px; /* Constrains image height perfectly */
+            object-fit: cover; /* Prevents stretching */
+            border: 1px solid var(--emerald-soft);
+            margin-bottom: 15px;
+        }
         
-        .product-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 20px; }
-        .gallery-main img { width: 100%; max-height: 650px; object-fit: cover; background-color: var(--off-white-alt); }
-        .gallery-thumbs { display: flex; gap: 12px; margin-top: 12px; }
-        .gallery-thumbs img { width: 70px; height: 90px; object-fit: cover; cursor: pointer; border: 1px solid var(--emerald-soft); opacity: 0.6; }
-        .gallery-thumbs img.active, .gallery-thumbs img:hover { opacity: 1; border-color: var(--emerald); }
-        .pd-info .pd-title { font-size: 2rem; margin-bottom: 12px; }
-        .pd-price { font-size: 1.2rem; color: var(--ink-soft); margin-bottom: 30px; }
-
-        .size-options { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 30px; }
-        .size-options input[type="radio"] { display: none; }
-        .size-options label { padding: 12px 20px; border: 1px solid var(--emerald-soft); cursor: pointer; font-size: 0.8rem; text-transform: uppercase; transition: all 0.3s ease; }
-        .size-options input[type="radio"]:checked + label { border-color: var(--emerald); background: var(--emerald); color: var(--off-white); }
-
-        /* =========================================
-           MOBILE & TABLET RESPONSIVENESS
-           ========================================= */
-        @media (max-width: 900px) {
-            .product-layout { grid-template-columns: 1fr; gap: 40px; }
-            .gallery-main img { max-height: 500px; }
+        .product-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
         }
 
+        .product-price {
+            color: var(--rose-gold-deep);
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+        }
+
+        /* Utilities */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+        }
+
+        .no-bottom-gap {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        /* Responsive Styles */
         @media (max-width: 768px) {
-            .container { padding: 0 20px; }
-            .section { padding: 60px 0; }
-            
-            /* Typography Scaling */
-            h1 { font-size: 2.2rem; }
-            h2 { font-size: 1.8rem; }
-            .pd-info .pd-title { font-size: 1.6rem; }
-            
-            /* Header & Navigation Stacking */
-            .nav-flex { flex-direction: column; gap: 20px; text-align: center; }
-            .brand-logo { justify-content: center; font-size: 1.4rem; flex-direction: column; gap: 10px; }
-            .brand-logo img { height: 75px !important; }
-            .nav-links { gap: 15px; }
-            
-            /* Product Grids */
-            .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
-            .product-thumb img { height: 240px; }
-            .category-grid { grid-template-columns: 1fr; gap: 20px; }
-            .category-card { padding: 50px 20px; }
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-text {
+                width: 90%;
+                padding: 20px 30px;
+            }
+            .brand-logo-img {
+                height: 90px !important; 
+            }
+            .brand-title {
+                font-size: 1.4rem !important;
+            }
+            .product-card img {
+                height: 300px; /* Slightly shorter on mobile */
+            }
         }
     </style>
 </head>
 <body>
 
-<header class="site-header">
-    <div class="container nav-flex">
-        
-        <a href="<?= e(base_url('index.php')) ?>" class="brand-logo">
-            <img src="<?= e(base_url('assets/images/logo.png')) ?>" alt="Ayana Boutique Logo" style="height: 95px; width: auto;">
-            <span>Ayana Boutique</span>
+<header>
+    <div class="container navbar">
+        <a href="<?= BASE_URL; ?>index.php" style="display: flex; align-items: center; gap: 20px; text-decoration: none;">
+            <img src="<?= BASE_URL; ?>assets/images/logo.png" alt="Ayana Boutique Logo" class="brand-logo-img" style="height: 130px; width: auto; object-fit: contain;">
+            <span class="brand-title" style="font-size: 2rem; color: var(--rose-gold); font-weight: 400;">Ayana Boutique</span>
         </a>
-        
+
         <nav class="nav-links">
-            <a href="<?= e(base_url('categories.php')) ?>">Shop</a>
-            <a href="<?= e(base_url('about.php')) ?>">Our Story</a>
-            <a href="<?= e(base_url('cart.php')) ?>">Cart (<?= cart_count_total() ?>)</a>
-            <?php if (isset($_SESSION['user_id'])): ?>
-                <a href="<?= e(base_url('account.php')) ?>" style="color: var(--emerald);">Account</a>
+            <a href="<?= BASE_URL; ?>categories.php">Collection</a>
+            <a href="<?= BASE_URL; ?>about.php">Our Story</a>
+            
+            <?php if(isset($_SESSION['user_id'])): ?>
+                <a href="<?= BASE_URL; ?>account.php">Account</a>
+                <a href="<?= BASE_URL; ?>logout.php">Sign Out</a>
             <?php else: ?>
-                <a href="<?= e(base_url('login.php')) ?>" style="color: var(--rose-gold);">Sign In</a>
+                <a href="<?= BASE_URL; ?>login.php">Sign In</a>
             <?php endif; ?>
+            
+            <a href="<?= BASE_URL; ?>cart.php" style="color: var(--rose-gold);">
+                Cart ( <span id="cart-count"><?= function_exists('cart_count_total') ? cart_count_total() : 0; ?></span> )
+            </a>
         </nav>
     </div>
 </header>

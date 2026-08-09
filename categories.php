@@ -1,39 +1,26 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/cart_functions.php';
 
-$pageTitle = 'Categories';
-$activePage = 'categories';
-
-$categories = get_all_categories($pdo);
-
-require __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/header.php';
 ?>
 
-<nav class="breadcrumb container" style="padding-top: 40px; padding-bottom: 0;">
-    <a href="<?= e(base_url('index.php')) ?>">Home</a>
-    <span class="sep">/</span>
-    <span class="current">Categories</span>
-</nav>
-
-<section class="section" style="padding-top: 40px;">
-    <div class="container">
-        <div class="section-head" style="text-align: center; margin-bottom: 50px;">
-            <span class="eyebrow">The Full Collection</span>
-            <h2>Shop by Category</h2>
-        </div>
-        
-        <div class="category-grid">
-            <?php foreach ($categories as $cat): ?>
-            <a href="<?= e(base_url('category.php?slug=' . $cat['slug'])) ?>" class="category-card">
-                <h3><?= e($cat['name']) ?></h3>
-                <span>Shop Now</span>
+<div class="container" style="padding-top: 60px;">
+    <h1 class="section-title">Our Collections</h1>
+    <p class="tagline" style="text-align: center; margin-bottom: 40px;">Explore our finest hand-selected heritage pieces.</p>
+    
+    <div class="category-grid">
+        <?php
+        $stmt = $pdo->query("SELECT * FROM categories ORDER BY name ASC");
+        while ($cat = $stmt->fetch()):
+        ?>
+            <a href="<?= BASE_URL; ?>category.php?id=<?= $cat['id']; ?>" class="category-item">
+                <h3><?= e($cat['name']); ?></h3>
             </a>
-            <?php endforeach; ?>
-        </div>
+        <?php endwhile; ?>
     </div>
-</section>
+</div>
 
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

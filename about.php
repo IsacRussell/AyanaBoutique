@@ -13,7 +13,7 @@ require __DIR__ . '/includes/header.php';
 <section class="about-hero">
     <div class="container" style="max-width: 720px;">
         <span class="eyebrow">Our Story</span>
-        <h1>A Trousseau Is Never Just Clothing</h1>
+        <h1>A Curated Collection Is Never Just Clothing</h1>
         <p class="accent-italic" style="font-size: 1.3rem;">It's a family's history, worn forward.</p>
     </div>
 </section>
@@ -25,7 +25,7 @@ require __DIR__ . '/includes/header.php';
             <span class="eyebrow">How We Began</span>
             <h2>Started at a Wedding, Not a Warehouse</h2>
             <p>Ayana Boutique began the way most good ideas do — with a wedding we couldn't stop thinking about. A grandmother's Pattu silk, re-draped for her granddaughter, stitched a room together in a way no new outfit could have. We started Ayana to hold onto that feeling: attire made to be worn again, remembered, and eventually handed down.</p>
-            <p>What began as a small collection of Chudidhars and Salwar Suits has grown into a full trousseau house — but the instinct hasn't changed. We still choose fabric the way you'd choose a keepsake.</p>
+            <p>What began as a small collection of Chudidhars and Salwar Suits has grown into a full bridal house — but the instinct hasn't changed. We still choose fabric the way you'd choose a keepsake.</p>
         </div>
     </div>
 </section>
@@ -71,7 +71,7 @@ require __DIR__ . '/includes/header.php';
 <section class="section section-emerald">
     <div class="container" style="text-align:center; max-width: 680px;">
         <span class="eyebrow" style="color: var(--rose-gold-soft);">Visit the Collection</span>
-        <h2>Begin Your Trousseau</h2>
+        <h2>Begin Your Collection</h2>
         <p>Seven categories, one house of craft — from everyday Kurtis to your wedding-day Pattu silk.</p>
         <a href="<?= e(base_url('categories.php')) ?>" class="btn btn-rose">Shop All Categories</a>
     </div>

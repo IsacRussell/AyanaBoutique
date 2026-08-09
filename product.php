@@ -26,11 +26,16 @@ if (!$product) {
 $pageTitle = $product['name'];
 
 // Gallery images
-$imgStmt = $pdo->prepare('SELECT * FROM product_images WHERE product_id = ? ORDER BY sort_order ASC');
+$imgStmt = $pdo->prepare('SELECT * FROM product_images WHERE product_id = ? ORDER BY id ASC');
 $imgStmt->execute([$product['id']]);
 $gallery = $imgStmt->fetchAll();
 
-$sizes = array_filter(array_map('trim', explode(',', $product['sizes'] ?? '')));
+// Fetch sizes from product_sizes table
+$stmtSizes = $pdo->prepare("SELECT * FROM product_sizes WHERE product_id = ? AND stock_qty > 0 ORDER BY id ASC");
+$stmtSizes->execute([$product['id']]);
+$availableSizes = $stmtSizes->fetchAll();
+
+$hasStock = count($availableSizes) > 0;
 
 require __DIR__ . '/includes/header.php';
 ?>
@@ -54,7 +59,7 @@ require __DIR__ . '/includes/header.php';
             <div class="gallery-thumbs">
                 <img src="<?= e(product_image_url($product['main_image'])) ?>" data-full="<?= e(product_image_url($product['main_image'])) ?>" class="thumb-trigger active" alt="Main view">
                 <?php foreach ($gallery as $g): ?>
-                    <img src="<?= e(base_url(UPLOAD_URL_PATH . ltrim($g['image_path'], '/'))) ?>" data-full="<?= e(base_url(UPLOAD_URL_PATH . ltrim($g['image_path'], '/'))) ?>" class="thumb-trigger" alt="Additional view">
+                    <img src="<?= e(product_image_url($g['image_path'])) ?>" data-full="<?= e(product_image_url($g['image_path'])) ?>" class="thumb-trigger" alt="Additional view">
                 <?php endforeach; ?>
             </div>
         </div>
@@ -75,13 +80,13 @@ require __DIR__ . '/includes/header.php';
             <form id="addToCartForm">
                 <input type="hidden" name="product_id" value="<?= (int) $product['id'] ?>">
 
-                <?php if ($sizes): ?>
+                <?php if ($availableSizes): ?>
                 <div>
                     <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft);">Select Size</span>
                     <div class="size-options">
-                        <?php foreach ($sizes as $i => $s): ?>
-                            <input type="radio" name="size" id="size-<?= $i ?>" value="<?= e($s) ?>" <?= $i === 0 ? 'checked' : '' ?>>
-                            <label for="size-<?= $i ?>"><?= e($s) ?></label>
+                        <?php foreach ($availableSizes as $i => $s): ?>
+                            <input type="radio" name="size" id="size-<?= $i ?>" value="<?= e($s['size_name']) ?>" <?= $i === 0 ? 'checked' : '' ?>>
+                            <label for="size-<?= $i ?>"><?= e($s['size_name']) ?></label>
                         <?php endforeach; ?>
                     </div>
                 </div>
@@ -89,11 +94,11 @@ require __DIR__ . '/includes/header.php';
 
                 <div style="margin-bottom: 24px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)"><path d="M20 6L9 17l-5-5"/></svg>
-                    <?= $product['stock_qty'] > 0 ? 'Item is in stock' : '<span style="color: var(--rose-gold);">Out of Stock</span>' ?>
+                    <?= $hasStock ? 'Item is in stock' : '<span style="color: var(--rose-gold);">Out of Stock</span>' ?>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block" style="padding: 20px; font-size: 0.9rem; background: #000; border-color: #000; color: #fff;" <?= $product['stock_qty'] <= 0 ? 'disabled' : '' ?>>
-                    <?= $product['stock_qty'] <= 0 ? 'Out of Stock' : 'Add to Cart' ?>
+                <button type="submit" class="btn btn-primary btn-block" style="padding: 20px; font-size: 0.9rem;" <?= !$hasStock ? 'disabled' : '' ?>>
+                    <?= !$hasStock ? 'Out of Stock' : 'Add to Cart' ?>
                 </button>
             </form>
 

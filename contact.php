@@ -22,7 +22,7 @@ require __DIR__ . '/includes/header.php';
             <span class="eyebrow">Get In Touch</span>
             <h2>We Are Here to Help</h2>
             <p style="color: var(--ink-soft); margin-top: 20px; font-size: 1.1rem;">
-                Whether you need sizing advice for your trousseau, have a question about a specific weave, or want to check on an order, we would love to hear from you.
+                Whether you need sizing advice for your ensemble, have a question about a specific weave, or want to check on an order, we would love to hear from you.
             </p>
         </div>
         

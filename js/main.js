@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (addToCartForm) {
         addToCartForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop the page from refreshing
+            e.preventDefault(); 
             
             const submitBtn = addToCartForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
@@ -21,9 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    submitBtn.innerHTML = 'Added to Trousseau';
+                    submitBtn.innerHTML = 'Added to Cart';
                     submitBtn.style.backgroundColor = 'var(--emerald)';
-                    // Update cart count in the navigation bar
                     document.querySelector('.nav-links a[href*="cart.php"]').innerHTML = `Cart (${data.cart_count})`;
                 } else {
                     alert(data.message);
@@ -43,8 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- CART PAGE LOGIC ---
-
-    // 1. Handle Quantity Changes
     document.querySelectorAll('.cart-qty-input').forEach(input => {
         input.addEventListener('change', function() {
             const key = this.dataset.key;
@@ -53,16 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 2. Handle Item Removal
     document.querySelectorAll('.remove-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const key = this.dataset.key;
-            updateCartItem(key, 0); // Sending 0 tells the server to delete the item
+            updateCartItem(key, 0); 
         });
     });
 
-    // The AJAX function that talks to the server
     function updateCartItem(key, qty) {
         const formData = new FormData();
         formData.append('key', key);
@@ -75,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                // Refresh the page to reflect new subtotals and shipping logic
                 window.location.reload(); 
             } else {
                 alert(data.message);

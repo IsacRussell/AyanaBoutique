@@ -7,7 +7,6 @@ require_once __DIR__ . '/includes/cart_functions.php';
 $pageTitle = 'Privacy Policy';
 require __DIR__ . '/includes/header.php';
 ?>
-
 <section class="section" style="padding-top: 40px;">
     <div class="container" style="max-width: 800px; margin: 0 auto;">
         <div class="section-head" style="text-align: center; margin-bottom: 50px;">
@@ -30,9 +29,8 @@ require __DIR__ . '/includes/header.php';
             </ul>
 
             <h3 style="margin-top: 30px; margin-bottom: 10px; color: var(--emerald);">4. Data Sharing</h3>
-            <p>We do not sell, trade, or rent your personal identification information to others. We may share necessary data with trusted third-party service providers solely for the purpose of operating our business (such as our logistics partners for shipping your trousseau or Stripe for processing your payment).</p>
+            <p>We do not sell, trade, or rent your personal identification information to others. We may share necessary data with trusted third-party service providers solely for the purpose of operating our business (such as our logistics partners for shipping your garments or Stripe for processing your payment).</p>
         </div>
     </div>
 </section>
-
 <?php require __DIR__ . '/includes/footer.php'; ?>

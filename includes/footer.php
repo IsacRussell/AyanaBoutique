@@ -1,14 +1,14 @@
 <?php
 // includes/footer.php
 ?>
-<footer style="background-color: var(--emerald); color: var(--off-white); padding: 60px 0; margin-top: 40px; text-align: center;">
+<footer style="background-color: var(--emerald); color: var(--off-white); padding: 60px 20px; margin-top: 40px; text-align: center;">
     <div class="container">
         <div style="margin-bottom: 24px;">
             <p class="cinzel" style="font-size: 1.5rem; color: var(--rose-gold); margin-bottom: 8px;">Ayana Boutique</p>
             <p class="accent-italic" style="color: var(--emerald-soft); font-size: 1.1rem;">Where Tradition Meets Elegance</p>
         </div>
         
-        <div style="display: flex; justify-content: center; gap: 32px; margin-bottom: 32px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 32px; margin-bottom: 32px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">
             <a href="<?= e(base_url('categories.php')) ?>" style="color: var(--off-white);">Shop</a>
             <a href="<?= e(base_url('about.php')) ?>" style="color: var(--off-white);">Our Story</a>
             <a href="<?= e(base_url('contact.php')) ?>" style="color: var(--off-white);">Contact</a>

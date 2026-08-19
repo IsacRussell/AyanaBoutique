@@ -19,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sale_price = !empty($_POST['sale_price']) ? (float)$_POST['sale_price'] : null;
     $description = trim($_POST['description']);
     
+    // Generate a URL-friendly slug from the product name
+    $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name), '-'));
+    
     // Arrays from our dynamic size rows
     $size_names = $_POST['size_names'] ?? [];
     $stock_qtys = $_POST['stock_qtys'] ?? [];
@@ -33,9 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             move_uploaded_file($_FILES['main_image']['tmp_name'], __DIR__ . '/../uploads/' . $mainImageName);
         }
 
-        // 2. Insert Core Product
-        $stmt = $pdo->prepare("INSERT INTO products (name, category_id, price, sale_price, description, main_image, status) VALUES (?, ?, ?, ?, ?, ?, 'active')");
-        $stmt->execute([$name, $category_id, $price, $sale_price, $description, $mainImageName]);
+        // 2. Insert Core Product (NOW INCLUDING THE SLUG)
+        $stmt = $pdo->prepare("INSERT INTO products (name, slug, category_id, price, sale_price, description, main_image, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'active')");
+        $stmt->execute([$name, $slug, $category_id, $price, $sale_price, $description, $mainImageName]);
         $product_id = $pdo->lastInsertId();
 
         // 3. Process Dynamic Sizes & Stock

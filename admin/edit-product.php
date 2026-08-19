@@ -19,14 +19,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sale_price = !empty($_POST['sale_price']) ? (float)$_POST['sale_price'] : null;
     $description = trim($_POST['description']);
     
+    // Generate a URL-friendly slug from the product name
+    $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name), '-'));
+    
     $size_names = $_POST['size_names'] ?? [];
     $stock_qtys = $_POST['stock_qtys'] ?? [];
 
     try {
         $pdo->beginTransaction();
 
-        $stmt = $pdo->prepare("UPDATE products SET name = ?, category_id = ?, price = ?, sale_price = ?, description = ? WHERE id = ?");
-        $stmt->execute([$name, $category_id, $price, $sale_price, $description, $product_id]);
+        $stmt = $pdo->prepare("UPDATE products SET name = ?, slug = ?, category_id = ?, price = ?, sale_price = ?, description = ? WHERE id = ?");
+        $stmt->execute([$name, $slug, $category_id, $price, $sale_price, $description, $product_id]);
 
         // Re-sync Dynamic Sizes
         $pdo->prepare("DELETE FROM product_sizes WHERE product_id = ?")->execute([$product_id]);
@@ -188,7 +191,7 @@ $categories = $pdo->query("SELECT * FROM categories ORDER BY name ASC")->fetchAl
                             <input type="number" name="stock_qtys[]" value="<?= $s['stock_qty'] ?>" min="0" style="flex: 1;" required>
                             <button type="button" class="btn-remove-size" onclick="this.parentElement.remove()">X</button>
                         </div>
-                        <?php endendforeach; ?>
+                        <?php endforeach; ?>
                     <?php else: ?>
                         <div class="size-row">
                             <input type="text" name="size_names[]" placeholder="Size Name (e.g. S, 36)" style="flex: 1;" required>
